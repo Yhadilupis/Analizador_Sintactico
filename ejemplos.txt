@@ -1,0 +1,18 @@
+Validaciones
+i=2
+a=true
+i=false
+i=*z*
+
+¡si{10>=5}![
+true
+]
+
+F(i=10,i>10,au++)[
+5<10
+]
+
+fun y()[ 
+a=b 
+return
+]
