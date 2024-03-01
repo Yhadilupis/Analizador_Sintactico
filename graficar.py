@@ -2,9 +2,8 @@ import tkinter as tk
 from analizador_lex import analyze
 from analizador import parse, parse_errors
 
-
 root = tk.Tk()
-root.title("Analizador Sintáctico")
+root.title("Analizador Sintactico")
 
 # Crear un área de texto para la entrada
 text_input = tk.Text(root, height=10, width=50, bg="lightgray", fg="black")
@@ -31,9 +30,9 @@ def analizar():
     if errors_found:
         output.insert(tk.END, "\nSe encontraron errores léxicos. Análisis sintáctico detenido.\n")
     else:
-        output.insert(tk.END, "\nProcediendo al Análisis Sintáctico...\n")
+        output.insert(tk.END, "\nRealizando al Análisis Sintáctico...\n")
         parser_result = parse(data)  # Realiza el análisis sintáctico solo si no hay errores léxicos
-        if parse_errors: 
+        if parse_errors:  # Si hay errores de sintaxis
             for error in parse_errors:
                 output.insert(tk.END, error + '\n')
         else:

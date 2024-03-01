@@ -5,14 +5,14 @@ i=false
 i=*z*
 
 ¡si{10>=5}![
-true
+Print(10)
 ]
 
 F(i=10,i>10,au++)[
-5<10
+Print(true)
 ]
 
 fun y()[ 
-a=b 
-return
+a=b
+return a
 ]

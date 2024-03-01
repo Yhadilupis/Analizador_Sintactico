@@ -4,12 +4,11 @@ from ply.lex import LexError
 lexical_errors = []
 
 tokens = [
-    'Palabra_reservada_For', 'Palabra_reservada_Funcion', 'Valor_booleano',
+    'Palabra_reservada_For', 'PRINT','Palabra_reservada_Funcion', 'Valor_booleano',
     'Palabra_reservada_sentencia_if', 'Identificador', 'ASIGNACION', 'String',
     'Valor_numerico', 'Simbolo_cierre_de_sentencia', 'PARENTESIS_izquierdo',
     'PARENTESIS_derecho', 'LLAVE_izquierda', 'LLAVE_derecha', 'Operador_comparacion',
-    'Palabra_reservada_para_retorno', 'COMA', 'Corchete_izquierdo', 'Corchete_derecho',
-    'Simbolo_especial','AUMENTO'
+    'Palabra_reservada_para_retorno', 'COMA', 'Corchete_izquierdo', 'Corchete_derecho', 'AUMENTO'
 ]
 
 #Reglas
@@ -23,7 +22,6 @@ t_Operador_comparacion = r'==|<=|>=|<|>'
 t_COMA = r','
 t_Corchete_izquierdo = r'\['
 t_Corchete_derecho = r'\]'
-t_Simbolo_especial = r'\*'
 t_AUMENTO = r'\+\+|--'
 
 
@@ -43,19 +41,23 @@ def t_Palabra_reservada_para_retorno(t):
     r'return'
     return t
 
+def t_PRINT(t):
+    r'Print'
+    return t
 
 def t_Identificador(t):
     r'[a-z]+'
-    lower_value = t.value.lower()
-    if lower_value == 'F':
+    if t.value == 'F':
         t.type = 'Palabra_reservada_For'
-    elif lower_value == '¡si':
+    elif t.value == '¡si':
         t.type = 'Palabra_reservada_sentencia_if'
-    elif lower_value == 'fun':
+    elif t.value == 'fun':
         t.type = 'Palabra_reservada_Funcion'
-    elif lower_value == 'return':
+    elif t.value == 'return':
         t.type = 'Palabra_reservada_para_retorno'
-    elif lower_value == 'true' or lower_value == 'false':
+    elif t.value == 'Print':
+        t.type = 'PRINT'
+    elif t.value == 'true' or t.value == 'false':
         t.type = "Valor_booleano"
     return t
 
@@ -82,12 +84,13 @@ def t_error(t):
     lexical_errors.append(message)
     t.lexer.skip(1)
 
-lexer = lex.lex()
+lexer = lex.lex() 
 
+#reinicia la lista de errores
 def clear_lexical_errors():
     global lexical_errors
     lexical_errors = []
-
+    
 def analyze(data):
     lexer.input(data)
     results = []
